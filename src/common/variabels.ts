@@ -13,7 +13,7 @@ import { IConfig } from "../../config/config.interface";
 import validator from "../validator/validator";
 import schema from "../validator/schema";
 import { mongoClient, pool } from "../boot";
-import { logger } from "./functions/logger";
+import { logger } from "./logic/logger";
 import { objectValidator } from "../validator/objectValidator";
 import objectSchema from "../validator/objectSchema";
 

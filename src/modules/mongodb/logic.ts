@@ -1,4 +1,4 @@
-import { hashGen } from "./../../common/functions/bcrypt";
+import { hashGen } from "../../common/logic/bcrypt";
 import BaseLogic from "../../base/logic/BaseLogic";
 import { IUserCreate, IUserGetOne, IUserRemove, IUserUpdate } from "./utils/interface";
 import { mongodbSchema } from "./utils/schema";

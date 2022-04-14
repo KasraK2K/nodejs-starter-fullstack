@@ -14,16 +14,16 @@ import path from "path";
 export default {
   boot: [
     "envirement",
-    "cron-jobs",
+    // "cron-jobs",
     // "mongodb",
     /*"mongoose",*/
-    "postgresql",
-    "firebase",
-    "information",
-    "treblle",
+    // "postgresql",
+    // "firebase",
+    // "information",
+    // "treblle",
   ],
   swagger: {
-    enabled: true,
+    enabled: false,
     endpoint: "/swagger",
     options: {
       explorer: true,
@@ -32,7 +32,7 @@ export default {
     },
   },
   redis: {
-    enabled: true,
+    enabled: false,
     options: {
       url: process.env.REDIS_URL ?? "redis://0.0.0.0:6379",
       // socket: "",

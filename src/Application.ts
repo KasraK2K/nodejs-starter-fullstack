@@ -6,7 +6,9 @@ import _ from "lodash";
 import { locals, globals } from "./common/variabels";
 import router from "./router";
 import rateLimiterMiddleware from "./middleware/RateLimiterMiddleware";
-import { getUserInformation } from "./common/functions/information";
+import { getUserInformation } from "./common/logic/information";
+import { useExpressServer } from "routing-controllers";
+import path from "path";
 
 /**
  * # Application
@@ -61,7 +63,11 @@ class Application {
   }
 
   private routes() {
-    app.use("/", router);
+    useExpressServer(app, {
+      controllers: [path.join(process.cwd(), "/src/controller/**/*.ts")],
+      middlewares: [path.join(process.cwd(), "/src/middleware/**/*.ts")],
+      interceptors: [path.join(process.cwd(), "/src/interceptor/**/*.ts")],
+    });
   }
 
   public start() {
