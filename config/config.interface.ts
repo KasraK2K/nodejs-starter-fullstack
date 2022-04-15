@@ -35,6 +35,7 @@ export interface ITreblleConfig {
 export interface IDatabaseConfig {
   mongodb: IMongodbConfig;
   postgres: IPostgresConfig;
+  redis: IRedisConfig;
 }
 
 // ─── MONGODB ────────────────────────────────────────────────────────────────────
@@ -56,6 +57,11 @@ export interface IPostgresConfig {
   ssl: {
     rejectUnauthorized: boolean;
   };
+}
+
+// ─── REDIS ──────────────────────────────────────────────────────────────────────
+export interface IRedisConfig {
+  uri: string;
 }
 
 // ───────────────────────────────────────────────────────────── RATE LIMITER ─────

@@ -2,6 +2,8 @@ import "./boot";
 import { app, express } from "./boot";
 import helmet from "helmet";
 import compression from "compression";
+import session from "express-session";
+import MongoStore from "connect-mongo";
 import _ from "lodash";
 import { locals, globals } from "./common/variabels";
 import router from "./router";
@@ -9,6 +11,11 @@ import rateLimiterMiddleware from "./middleware/RateLimiterMiddleware";
 import { getUserInformation } from "./common/logic/information";
 import { useExpressServer } from "routing-controllers";
 import path from "path";
+import k2Token from "./common/logic/k2Token";
+import config from "config";
+import { IMongodbConfig } from "./../config/config.interface";
+
+const mongodbConfig: IMongodbConfig = config.get("database.mongodb");
 
 /**
  * # Application
@@ -55,18 +62,25 @@ class Application {
 
   private middlewares() {
     app.use(express.json());
-    app.use(express.urlencoded({ extended: false }));
+    app.use(express.urlencoded({ extended: true }));
     app.use(helmet());
     app.use(compression());
-    app.disable("x-powered-by");
     app.use(rateLimiterMiddleware.check());
+    app.use(
+      session({
+        secret: k2Token.sign({ answere: 42 }),
+        store: MongoStore.create({ mongoUrl: mongodbConfig.uri, collectionName: "sessions" }),
+        resave: false,
+        saveUninitialized: true,
+        cookie: { path: "/", httpOnly: true, secure: false },
+      })
+    );
+    app.use("static", express.static(path.join(process.cwd(), "/src/public/static")));
+    app.disable("x-powered-by");
   }
 
   private routes() {
-    // Express Routes
-    app.use("/", router);
-
-    // Routing Controller Routes
+    app.use("/api", router);
     useExpressServer(app, {
       controllers: [path.join(process.cwd(), "/src/controller/**/*.ts")],
       middlewares: [path.join(process.cwd(), "/src/middleware/**/*.ts")],
