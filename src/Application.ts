@@ -63,6 +63,10 @@ class Application {
   }
 
   private routes() {
+    // Express Routes
+    app.use("/", router);
+
+    // Routing Controller Routes
     useExpressServer(app, {
       controllers: [path.join(process.cwd(), "/src/controller/**/*.ts")],
       middlewares: [path.join(process.cwd(), "/src/middleware/**/*.ts")],

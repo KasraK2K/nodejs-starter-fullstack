@@ -23,7 +23,7 @@ export default {
     // "treblle",
   ],
   swagger: {
-    enabled: false,
+    enabled: true,
     endpoint: "/swagger",
     options: {
       explorer: true,
@@ -32,7 +32,7 @@ export default {
     },
   },
   redis: {
-    enabled: false,
+    enabled: true,
     options: {
       url: process.env.REDIS_URL ?? "redis://0.0.0.0:6379",
       // socket: "",

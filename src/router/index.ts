@@ -38,7 +38,7 @@ const router = express.Router();
 //   :::::: R O U T E S : :  :   :    :     :        :          :
 // ──────────────────────────────────────────────────────────────
 // generals
-router.post("/shake-hand", generalController.shakeHand);
+router.route("/shake-hand").all(generalController.shakeHand);
 
 // postgres
 router.post("/postgres/list", postgresController.selectAll);
