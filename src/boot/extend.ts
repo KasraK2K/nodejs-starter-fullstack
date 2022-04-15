@@ -13,7 +13,6 @@ import "express-session";
 declare module "express-session" {
   interface SessionData {
     visitCount?: number;
-    process_id?: string;
   }
 }
 

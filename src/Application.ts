@@ -54,7 +54,7 @@ class Application {
     app.locals = locals;
     _.assign(global, globals);
 
-    app.set("view engine", "ejs");
+    app.set("view engine", "pug");
     app.set("views", "./src/views");
     app.set("view cache", process.env.NODE_ENV === "production");
     app.set("public", "./src/public");
