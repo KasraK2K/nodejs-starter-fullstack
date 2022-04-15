@@ -11,7 +11,6 @@ import rateLimiterMiddleware from "./middleware/RateLimiterMiddleware";
 import { getUserInformation } from "./common/logic/information";
 import { useExpressServer } from "routing-controllers";
 import path from "path";
-import k2Token from "./common/logic/k2Token";
 import config from "config";
 import { IMongodbConfig } from "./../config/config.interface";
 
@@ -68,7 +67,7 @@ class Application {
     app.use(rateLimiterMiddleware.check());
     app.use(
       session({
-        secret: k2Token.sign({ answere: 42 }),
+        secret: process.env.SESSION_SECRET || "secret",
         store: MongoStore.create({ mongoUrl: mongodbConfig.uri, collectionName: "sessions" }),
         resave: false,
         saveUninitialized: true,

@@ -10,9 +10,6 @@
 
 import fs from "fs";
 import path from "path";
-import config, { IConfig } from "config";
-
-const configs: IConfig = config.util.toObject();
 
 export default {
   boot: [
