@@ -3,6 +3,7 @@ export interface IConfig {
   mode: string;
   application: IApplicationConfig;
   database: IDatabaseConfig;
+  cors: ICorsConfig;
 }
 
 // ────────────────────────────────────────────────────────────── APPLICATION ─────
@@ -16,6 +17,9 @@ export interface IApplicationConfig {
     logOnFile: boolean;
     logOnConsole: boolean;
     logOnDatabase: boolean;
+  };
+  upload: {
+    destination: string;
   };
   monitoring: IMonitoringConfig;
 }
@@ -62,6 +66,12 @@ export interface IPostgresConfig {
 // ─── REDIS ──────────────────────────────────────────────────────────────────────
 export interface IRedisConfig {
   uri: string;
+}
+
+// ───────────────────────────────────────────────────────────────────── CORS ─────
+export interface ICorsConfig {
+  allow_origin: string;
+  allow_method: string;
 }
 
 // ───────────────────────────────────────────────────────────── RATE LIMITER ─────

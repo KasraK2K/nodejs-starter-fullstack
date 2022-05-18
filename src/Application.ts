@@ -8,6 +8,8 @@ import _ from "lodash";
 import { locals, globals } from "./common/variabels";
 import router from "./router";
 import rateLimiterMiddleware from "./middleware/RateLimiterMiddleware";
+import multipartMiddleware from "./middleware/MultipartMiddleware";
+import requestMiddleware from "./middleware/RequestMiddleware";
 import { getUserInformation } from "./common/logic/information";
 import { useExpressServer } from "routing-controllers";
 import path from "path";
@@ -41,9 +43,6 @@ class Application {
     const { port } = options;
     this.port = Number(process.env.PORT) || port;
 
-    const process_id = (+new Date() + Math.floor(Math.random() * (999 - 100) + 100)).toString(16);
-    _.assign(global, { process_id });
-
     this.config();
     this.middlewares();
     this.routes();
@@ -65,6 +64,8 @@ class Application {
     app.use(helmet());
     app.use(compression());
     app.use(rateLimiterMiddleware.check());
+    app.use(multipartMiddleware.extendBody);
+    app.use(requestMiddleware.processIdAdder);
     app.use(
       session({
         secret: process.env.SESSION_SECRET || "secret",
